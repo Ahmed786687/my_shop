@@ -12,7 +12,8 @@ class CartItem extends StatelessWidget {
   final double price;
 
   // ignore: prefer_const_constructors_in_immutables
-  CartItem({Key? key, 
+  CartItem({
+    Key? key,
     required this.id,
     required this.productId,
     required this.title,
@@ -28,13 +29,40 @@ class CartItem extends StatelessWidget {
       key: ValueKey(id),
       background: Container(
         color: Theme.of(context).errorColor,
-        child: const Icon(Icons.delete, color: Colors.white, size: 50,),
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 50,
+        ),
         padding: const EdgeInsets.only(right: 20),
         alignment: Alignment.centerRight,
-        
       ),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction){
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text("Are you sure?"),
+            content:
+                const Text("Do you want to remove the item from the cart?"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+                child: const Text("Yes"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+                child: const Text("No"),
+              )
+            ],
+          ),
+        );
+      },
+      onDismissed: (direction) {
         cart.removeCartItem(productId);
       },
       child: Card(

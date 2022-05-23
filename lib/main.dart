@@ -1,17 +1,18 @@
 // packges
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/providers/orders.dart';
-import 'package:shop_app/screens/cart_screen.dart';
-import 'package:shop_app/screens/orders_screen.dart';
 
 // Providers
 import './providers/cart.dart';
+import './providers/orders.dart';
 import './providers/products.dart';
 
 //screens
+import './screens/cart_screen.dart';
+import './screens/orders_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/product_overview_screen.dart';
+import './screens/user_product_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "My Shop",
         theme: ThemeData(
           primarySwatch: Colors.teal,
@@ -49,8 +51,9 @@ class MyApp extends StatelessWidget {
         home: ProductOverviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
-          CartScreen.routeName: ((context) => const CartScreen()),
-          OrdersScreen.routeName: ((context) => const OrdersScreen()),
+          CartScreen.routeName: (context) => const CartScreen(),
+          OrdersScreen.routeName: (context) => const OrdersScreen(),
+          UserProductsScreen.routeName: (context) => const UserProductsScreen(),
         },
       ),
     );

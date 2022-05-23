@@ -57,9 +57,7 @@ class ProductItem extends StatelessWidget {
             builder: (context, value, child) => IconButton(
               // color: Theme.of(context).primaryColor,
               icon: Icon(
-                product.isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border,
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
               ),
               onPressed: () {
                 product.toggleFavoriteStatus();
@@ -80,6 +78,22 @@ class ProductItem extends StatelessWidget {
                 product.id,
                 product.price,
                 product.title,
+              );
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              // Scaffold.of(context).hideCurrentSnackBar(); //
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 2),
+                  content: const Text(
+                    "Added Item to Cart",
+                  ),
+                  action: SnackBarAction(
+                    label: 'UNDO',
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
               );
             },
           ),
